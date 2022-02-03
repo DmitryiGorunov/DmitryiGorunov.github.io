@@ -4,33 +4,43 @@
     <script type="text/javascript" src="smoothie.js"></script>
     <script type="text/javascript">
 
-      // Randomly add a data point every 500ms
       var random = new TimeSeries();
-      setInterval(function() {
-        random.append(new Date().getTime(), Math.random() * 400);
-      }, 500);
+      setInterval(function() {random.append(new Date().getTime(), Math.random() * 400);}, 500);
 
       function createTimeline() {
-        var chart = new SmoothieChart({responsive: true,millisPerPixel:100,maxValueScale:1.13,minValueScale:0.8,grid:{millisPerLine:8000,verticalSections:20},tooltip:true,limitFPS:15,minValue:0,timestampFormatter:SmoothieChart.timeFormatter});
-        chart.addTimeSeries(random, { strokeStyle: 'rgba(34,248,239, 1)', fillStyle: 'rgba(34,248,239, 0.2)', lineWidth: 2 });
-        chart.streamTo(document.getElementById("chart"), 500);
-      }
+        var chart = new SmoothieChart({
+        responsive: true,
+        millisPerPixel:100,
+        maxValueScale:1.13,
+        minValueScale:0.8,
+        grid:{millisPerLine:8000,verticalSections:20},
+        tooltip:true,
+        limitFPS:15,
+        minValue:0,
+        timestampFormatter:SmoothieChart.timeFormatter});
+
+        chart.addTimeSeries(random,{
+        strokeStyle: 'rgba(34,248,239, 1)',
+        fillStyle: 'rgba(34,248,239, 0.2)',
+        lineWidth: 2 });
+
+        chart.streamTo(document.getElementById("chart"), 500);}
+
     </script>
     <style>
-    div.smoothie-chart-tooltip {
-  background: #444;
-  padding: 1em;
-  margin-top: 20px;
-  font-family: consolas;
-  color: white;
-  font-size: 10px;
-  pointer-events: none;
-}
+        div.smoothie-chart-tooltip {
+        background: #444;
+        padding: 1em;
+        margin-top: 20px;
+        font-family: consolas;
+        color: white;
+        font-size: 10px;
+        pointer-events: none;}
     </style>
   </head>
   <body onload="createTimeline()">
 
-       <canvas id="chart" style="width:90%; height:80%"></canvas>
+    <canvas id="chart" style="width:90%; height:80%"></canvas>
 
   </body>
 </html>
